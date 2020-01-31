@@ -29,10 +29,13 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-  //  [GitVersion] readonly GitVersion GitVersion;
+    //  [GitVersion] readonly GitVersion GitVersion;
 
+    AbsolutePath SourceDirectory = RootDirectory / "MyPonto.Client";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    [Parameter("NuGet Api Key",Name = "NUGET_API_KEY")] readonly string NUGET_API_KEY;
+    [Parameter("NuGet Source for Packages")] readonly string Source = "https://api.nuget.org/v3/index.json";
 
     Target Clean => _ => _
         .Before(Restore)
@@ -61,5 +64,30 @@ class Build : NukeBuild
                 //.SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
         });
+    Target Pack => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DotNetPack(s => s
+                .SetOutputDirectory(ArtifactsDirectory)
+                .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj"));
+
+        });
+    Target Publish => _ => _
+        .DependsOn(Pack)
+        .Executes(() =>
+        {
+            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+            DotNetNuGetPush(_ => _
+                    .SetSource(SourceDirectory)
+                    .SetApiKey(NUGET_API_KEY)
+                    .CombineWith(
+                        packages, (_, v) => _
+                            .SetTargetPath(v)),
+                degreeOfParallelism: 5,
+                completeOnFailure: true);
+
+        });
+
 
 }
