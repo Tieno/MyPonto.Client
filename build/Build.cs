@@ -77,6 +77,7 @@ class Build : NukeBuild
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj")
                 .SetVersion(GitVersion.NuGetVersionV2)
+
             );
 
         });
