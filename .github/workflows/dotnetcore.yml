@@ -16,4 +16,4 @@ jobs:
       env:
        NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}  
     - name: Build with dotnet
-      run: dotnet run --project build/_build.csproj
+      run: dotnet run --project build/_build.csproj Publish
