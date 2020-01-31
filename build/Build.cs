@@ -25,7 +25,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main () => Execute<Build>(x => x.Publish);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -59,6 +59,7 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
+            var test = GitVersion.AssemblySemVer;
             DotNetBuild(_ => _
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
@@ -74,7 +75,9 @@ class Build : NukeBuild
         {
             DotNetPack(s => s
                 .SetOutputDirectory(ArtifactsDirectory)
-                .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj"));
+                .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj")
+                .SetVersion(GitVersion.NuGetVersionV2)
+            );
 
         });
     Target Publish => _ => _
