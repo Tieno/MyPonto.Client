@@ -87,7 +87,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
-            
+            //add minor change
             DotNetNuGetPush(_ => _
                     .SetSource(NUGET_ENDPOINT)
                     .SetApiKey(NUGET_API_KEY)
