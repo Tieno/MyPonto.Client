@@ -36,7 +36,7 @@ class Build : NukeBuild
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
     [Parameter("NuGet Api Key",Name = "NUGET_API_KEY")] readonly string NUGET_API_KEY;
-    [Parameter("NuGet Source for Packages")] readonly string Source = "https://api.nuget.org/v3/index.json";
+    [Parameter("NuGet Endpoint for Packages")] readonly string NUGET_ENDPOINT = "https://api.nuget.org/v3/index.json";
 
     Target Clean => _ => _
         .Before(Restore)
@@ -77,12 +77,14 @@ class Build : NukeBuild
     Target Publish => _ => _
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
+        .Requires(() => NUGET_ENDPOINT)
         .Executes(() =>
         {
             var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
             
             DotNetNuGetPush(_ => _
-                    .SetSource(SourceDirectory)
+                    .SetSource(NUGET_ENDPOINT)
+                    
                     .SetApiKey(NUGET_API_KEY)
                     .CombineWith(
                         packages, (_, v) => _
