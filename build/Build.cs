@@ -57,9 +57,9 @@ class Build : NukeBuild
             DotNetBuild(_ => _
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .SetAssemblyVersion(GitVersion.AssemblySemVer)
-                .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
+                //.SetAssemblyVersion(GitVersion.AssemblySemVer)
+                //.SetFileVersion(GitVersion.AssemblySemFileVer)
+                //.SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
         });
 
