@@ -75,6 +75,7 @@ class Build : NukeBuild
         });
     Target Publish => _ => _
         .DependsOn(Pack)
+        .Requires(() => NUGET_API_KEY)
         .Executes(() =>
         {
             var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
