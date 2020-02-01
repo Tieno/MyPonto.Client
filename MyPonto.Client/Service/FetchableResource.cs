@@ -6,7 +6,7 @@
 
         public void Bind(MyPontoService service)
         {
-            this._service = service;
+            this._service = service; 
         }
     } 
 }
