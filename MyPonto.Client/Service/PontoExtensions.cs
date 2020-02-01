@@ -52,7 +52,7 @@ namespace MyPonto.Client.Service
         }
         
 
-
+         
 
         public static async Task WaitTillCompleted(this IEnumerable<Synchronization> syncs, int timeOutInMsSeconds = 10000)
         {
