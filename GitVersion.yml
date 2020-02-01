@@ -4,6 +4,7 @@ assembly-file-versioning-scheme: MajorMinorPatch
 branches:
   master:
     regex: (origin/)?master
+    increment: Patch
   develop:
     increment: Patch
     tag: beta

@@ -22,6 +22,9 @@ namespace MyPonto.Client.Model
         [JsonProperty("attributes")]
         public AccountResourceAttributes Attributes { get; set; }
 
-        
+        internal void Bind(MyPontoService service)
+        {
+            this.Relationships.Bind(service);
+        }
     }
 }
