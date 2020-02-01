@@ -111,24 +111,18 @@ class Build : NukeBuild
 
         });
     Target Test => _ => _
-        .OnlyWhenStatic(() => TestProjects.Length > 0)
+        
         .DependsOn(Compile)
         .Requires(() => MYPONTO_CLIENTID)
         .Requires(() => MYPONTO_CLIENTSECRET)
         
         .Executes(() =>
         {
-            var testProjects = TestProjects;
-            var testRun = 1;
-            
-            foreach (var testProject in testProjects)
-            {
-                DotNetTest(s => s.SetProjectFile(testProject).SetFilter("Category!=RunLocal").SetLogOutput(true)
-                    .SetListTests(true).SetNoBuild(true).ResetVerbosity()
-                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID),MYPONTO_CLIENTID)
-                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
-                );
-            }
+            DotNetTest(s => s.SetProjectFile(TestsDirectory / "MyPonto.Tests" / "MyPonto.Test.csproj").SetFilter("Category!=RunLocal").SetLogOutput(true)
+                .SetListTests(true).SetNoBuild(true).ResetVerbosity()
+                .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID), MYPONTO_CLIENTID)
+                .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
+            );
         });
 
 }
