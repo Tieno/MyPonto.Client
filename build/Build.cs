@@ -116,7 +116,7 @@ class Build : NukeBuild
             foreach (var testProject in testProjects)
             {
                 DotNetTest(s => s.SetProjectFile(testProject).SetFilter("Category!=RunLocal").SetLogOutput(true)
-                    .SetListTests(true).SetNoBuild(true)
+                    .SetListTests(true).SetNoBuild(true).SetVerbosity(DotNetVerbosity.Normal)
                     .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID),MYPONTO_CLIENTID)
                     .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
                 );
