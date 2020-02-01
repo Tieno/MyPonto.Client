@@ -71,11 +71,11 @@ namespace MyPonto.Client.Service
         }
         public Task<TransactionsResponse> GetTransactionsBefore(Guid accountId, Guid transactionId)
         {
-            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?before={transactionId}limit={_pageSize}"));
+            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?before={transactionId}&limit={_pageSize}"));
         }
         public Task<TransactionsResponse> GetTransactionsAfter(Guid accountId, Guid transactionId)
         {
-            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?after={transactionId}limit={_pageSize}"));
+            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?after={transactionId}&limit={_pageSize}"));
         }
         public async Task<Synchronization> WaitForSynchronization(Guid synchronizationid, int timeOutInMsSeconds = 10000)
         {
