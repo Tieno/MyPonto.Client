@@ -36,7 +36,7 @@ class Build : NukeBuild
      [GitVersion] readonly GitVersion GitVersion;
 
     AbsolutePath SourceDirectory = RootDirectory / "MyPonto.Client";
-    AbsolutePath TestsDirectory => RootDirectory / "tests";
+    AbsolutePath TestsDirectory => Solution.Directory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
     String[] TestProjects
@@ -111,18 +111,22 @@ class Build : NukeBuild
 
         });
     Target Test => _ => _
-        
+        .OnlyWhenStatic(() => TestProjects.Length > 0)
         .DependsOn(Compile)
         .Requires(() => MYPONTO_CLIENTID)
         .Requires(() => MYPONTO_CLIENTSECRET)
         
         .Executes(() =>
         {
-            DotNetTest(s => s.SetProjectFile(TestsDirectory / "MyPonto.Tests" / "MyPonto.Test.csproj").SetFilter("Category!=RunLocal").SetLogOutput(true)
-                .SetListTests(true).SetNoBuild(true).ResetVerbosity()
-                .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID), MYPONTO_CLIENTID)
-                .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
-            );
+            foreach (var testProject in TestProjects)
+            {
+                DotNetTest(s => s.SetProjectFile(testProject).SetFilter("Category!=RunLocal").SetLogOutput(true)
+                    .SetListTests(true).SetNoBuild(true).ResetVerbosity()
+                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID), MYPONTO_CLIENTID)
+                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
+                );
+            }
+          
         });
 
 }
