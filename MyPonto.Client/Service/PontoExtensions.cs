@@ -18,12 +18,16 @@ namespace MyPonto.Client.Service
             allTransactionsResponse.Meta.Paging = null;
             TransactionsResponse nextPage = await transactionResponse.Links.GetFirstPage();
             allTransactionsResponse.Data.AddRange(nextPage.Data);
-            do
+            if (nextPage.Links.Next != null)
             {
-                nextPage = await nextPage.Links.GetNextPage();
-                allTransactionsResponse.Data.AddRange(nextPage.Data);
-                allTransactionsResponse.Links = nextPage.Links;
-            } while (nextPage.Links.Next != null);
+                do
+                {
+                    nextPage = await nextPage.Links.GetNextPage();
+                    allTransactionsResponse.Data.AddRange(nextPage.Data);
+                    allTransactionsResponse.Links = nextPage.Links;
+                } while (nextPage.Links.Next != null);
+            }
+          
             return allTransactionsResponse;
         }
         public static async Task<TransactionsResponse> GetNewTransactions(this IMyPontoService myPontoService, Guid accountId, Guid lastKnownTransactionId)
@@ -34,12 +38,16 @@ namespace MyPonto.Client.Service
             allTransactionsResponse.Meta = transactionResponse.Meta;
             allTransactionsResponse.Meta.Paging = null;
             allTransactionsResponse.Data.AddRange(transactionResponse.Data);
-            do
+            if (transactionResponse.Links.Prev != null)
             {
-                transactionResponse = await transactionResponse.Links.GetPreviousPage();
-                allTransactionsResponse.Data.AddRange(transactionResponse.Data);
-                allTransactionsResponse.Links = transactionResponse.Links;
-            } while (transactionResponse.Links.Prev != null);
+                do
+                {
+                    transactionResponse = await transactionResponse.Links.GetPreviousPage();
+                    allTransactionsResponse.Data.AddRange(transactionResponse.Data);
+                    allTransactionsResponse.Links = transactionResponse.Links;
+                } while (transactionResponse.Links.Prev != null);
+            }
+        
             return allTransactionsResponse;
         }
 
