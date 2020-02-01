@@ -40,7 +40,7 @@ namespace MyPonto.Client.Service
             }
         }
 
-        public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(IMyPontoService myPontoService, Guid accountId)
+        public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(this IMyPontoService myPontoService, Guid accountId)
         {
             var syncs = new List<Synchronization>();
             var account = await myPontoService.GetAccount(accountId);
@@ -50,6 +50,9 @@ namespace MyPonto.Client.Service
             }
             return syncs;
         }
+        
+
+
 
         public static async Task WaitTillCompleted(this IEnumerable<Synchronization> syncs, int timeOutInMsSeconds = 10000)
         {
