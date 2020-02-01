@@ -8,5 +8,5 @@
         {
             this._service = service;
         }
-    }
+    } 
 }
