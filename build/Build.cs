@@ -111,12 +111,13 @@ class Build : NukeBuild
         .Requires(() => MYPONTO_CLIENTSECRET)
         .Executes(() =>
         {
-            var testProjects = GlobFiles(TestsDirectory, "*\\*tests.csproj");
+            var testProjects = GlobFiles(TestsDirectory / "MyPonto.Tests", "*tests.csproj");
             var testRun = 1;
+            
             foreach (var testProject in testProjects)
             {
                 DotNetTest(s => s.SetProjectFile(testProject).SetFilter("Category!=RunLocal").SetLogOutput(true)
-                    .SetListTests(true).SetNoBuild(true).SetVerbosity(DotNetVerbosity.Normal)
+                    .SetListTests(true).SetNoBuild(true).ResetVerbosity()
                     .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID),MYPONTO_CLIENTID)
                     .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
                 );

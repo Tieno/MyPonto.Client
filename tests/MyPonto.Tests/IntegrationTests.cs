@@ -36,7 +36,7 @@ namespace MyPonto.Tests
             var response = await this.client.GetAccounts();
 
             response.Data.Should().NotBeNullOrEmpty("we expect at least 1 account");
-            throw new Exception();
+           
         }
     }
 }
