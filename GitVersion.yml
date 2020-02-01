@@ -5,7 +5,10 @@ commit-message-incrementing: Enabled
 next-version: 0.2.1
 branches:
   master:
-    regex: (origin/)?master
+    tag:
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
   develop:
     increment: Patch
     tag: beta
