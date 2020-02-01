@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MyPonto.Client.Model;
 
@@ -42,13 +43,12 @@ namespace MyPonto.Client.Service
 
         public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(this IMyPontoService myPontoService, Guid accountId)
         {
-            var synchronizations = new List<Synchronization>();
             var account = await myPontoService.GetAccount(accountId);
             if (account.Meta.SynchronizedAt.CanSynchronize())
             {
                 return await myPontoService.CreateSynchronizations(accountId);
             }
-            return synchronizations;
+            return new List<Synchronization>();
         }
         
 
