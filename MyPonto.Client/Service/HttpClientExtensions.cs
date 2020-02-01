@@ -15,7 +15,7 @@ namespace MyPonto.Client.Service
         }
         public static async Task<T> GetAs<T>(this HttpClient thisClient, Uri uri)
         {
-            var response = await thisClient.GetAsync(uri);
+            var response = await thisClient.GetAsync(uri); 
             return await response.GetAs<T>();
         }
         public static async Task<T> GetAs<T>(this HttpResponseMessage thisResponse)
