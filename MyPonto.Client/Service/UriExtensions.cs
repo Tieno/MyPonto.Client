@@ -42,7 +42,7 @@ namespace MyPonto.Client.Service
             var uriKind = uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative;
             return queryCollection.Count == 0
                 ? new Uri(baseUrl, uriKind)
-                : new Uri(string.Format("{0}?{1}", baseUrl, queryCollection), uriKind);
+                : new Uri($"{baseUrl}?{queryCollection}", uriKind);
         }
 
         /// <summary>
