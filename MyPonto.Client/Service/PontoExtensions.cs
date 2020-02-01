@@ -42,13 +42,13 @@ namespace MyPonto.Client.Service
 
         public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(this IMyPontoService myPontoService, Guid accountId)
         {
-            var syncs = new List<Synchronization>();
+            var synchronizations = new List<Synchronization>();
             var account = await myPontoService.GetAccount(accountId);
             if (account.Meta.SynchronizedAt.CanSynchronize())
             {
                 return await myPontoService.CreateSynchronizations(accountId);
             }
-            return syncs;
+            return synchronizations;
         }
         
 
