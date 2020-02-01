@@ -38,6 +38,11 @@ class Build : NukeBuild
     AbsolutePath SourceDirectory = RootDirectory / "MyPonto.Client";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+
+    String[] TestProjects
+    {
+        get { return GlobFiles(TestsDirectory / "MyPonto.Tests", "*.Tests.csproj").ToArray(); }
+    }
     
     [Parameter("NuGet Api Key",Name = "NUGET_API_KEY")] readonly string NUGET_API_KEY;
     [Parameter("NuGet Endpoint for Packages")] readonly string NUGET_ENDPOINT = "https://api.nuget.org/v3/index.json";
@@ -106,12 +111,14 @@ class Build : NukeBuild
 
         });
     Target Test => _ => _
+        .OnlyWhenStatic(() => TestProjects.Length > 0)
         .DependsOn(Compile)
         .Requires(() => MYPONTO_CLIENTID)
         .Requires(() => MYPONTO_CLIENTSECRET)
+        
         .Executes(() =>
         {
-            var testProjects = GlobFiles(TestsDirectory / "MyPonto.Tests", "*tests.csproj");
+            var testProjects = TestProjects;
             var testRun = 1;
             
             foreach (var testProject in testProjects)
