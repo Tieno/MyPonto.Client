@@ -1,12 +1,9 @@
-commit-message-incrementing: Enabled
-next-version: 0.2.1
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatch
+
 branches:
   master:
-    regex: ^master
-    mode: ContinuousDelivery
-    increment: Patch
-    prevent-increment-of-merged-branch-version: false
-    track-merge-target: false
+    regex: (origin/)?master
   develop:
     increment: Patch
     tag: beta
