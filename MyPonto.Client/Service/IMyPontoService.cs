@@ -13,7 +13,9 @@ namespace MyPonto.Client.Service
         Task<AccountResource> GetAccount(Guid accountId);
 
         Task<TransactionsResponse> GetTransactions(Guid accountId);
-        
+        Task<TransactionsResponse> GetTransactionsBefore(Guid accountId, Guid transactionId);
+        Task<TransactionsResponse> GetTransactionsAfter(Guid accountId, Guid transactionId);
+
         Task<Synchronization> WaitForSynchronization(Guid synchronizationid, int timeOutInMsSeconds = 10000);
         Task<Synchronization> GetSynchronization(Guid synchronizationId);
         Task<Synchronization> CreateSynchronization(Guid accountId, SynchronizationType type= null);

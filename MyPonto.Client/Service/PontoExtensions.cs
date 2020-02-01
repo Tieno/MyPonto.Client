@@ -24,9 +24,23 @@ namespace MyPonto.Client.Service
                 allTransactionsResponse.Data.AddRange(nextPage.Data);
                 allTransactionsResponse.Links = nextPage.Links;
             } while (nextPage.Links.Next != null);
-
             return allTransactionsResponse;
-
+        }
+        public static async Task<TransactionsResponse> GetNewTransactions(this IMyPontoService myPontoService, Guid accountId, Guid lastKnownTransactionId)
+        {
+            var allTransactionsResponse = new TransactionsResponse();
+            allTransactionsResponse.Data = new List<TransactionResource>();
+            var transactionResponse = await myPontoService.GetTransactionsBefore(accountId, lastKnownTransactionId);
+            allTransactionsResponse.Meta = transactionResponse.Meta;
+            allTransactionsResponse.Meta.Paging = null;
+            allTransactionsResponse.Data.AddRange(transactionResponse.Data);
+            do
+            {
+                transactionResponse = await transactionResponse.Links.GetPreviousPage();
+                allTransactionsResponse.Data.AddRange(transactionResponse.Data);
+                allTransactionsResponse.Links = transactionResponse.Links;
+            } while (transactionResponse.Links.Prev != null);
+            return allTransactionsResponse;
         }
 
         private static bool CanSynchronize(this DateTimeOffset synchronizedAt)

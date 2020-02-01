@@ -69,6 +69,14 @@ namespace MyPonto.Client.Service
             uri = AddLimit(uri);
             return bind(_client.GetAs<TransactionsResponse>(uri));
         }
+        public Task<TransactionsResponse> GetTransactionsBefore(Guid accountId, Guid transactionId)
+        {
+            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?before={transactionId}limit={_pageSize}"));
+        }
+        public Task<TransactionsResponse> GetTransactionsAfter(Guid accountId, Guid transactionId)
+        {
+            return bind(_client.GetAs<TransactionsResponse>($"accounts/{accountId}/transactions?after={transactionId}limit={_pageSize}"));
+        }
         public async Task<Synchronization> WaitForSynchronization(Guid synchronizationid, int timeOutInMsSeconds = 10000)
         {
             var cancellationTokenSource = new CancellationTokenSource();
