@@ -7,9 +7,11 @@
     <RootNamespace></RootNamespace>
     <IsPackable>False</IsPackable>
     <NoWarn>CS0649;CS0169</NoWarn>
+    <UserSecretsId>86ea6813-4e4f-4441-9d64-443fd24c7769</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.0" />
     <PackageReference Include="Nuke.Common" Version="0.24.0-alpha0249" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.1.0]" />
   </ItemGroup>

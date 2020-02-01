@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "_build": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "NUGET_API_KEY": "oy2lm74rmpftzffjrojaai7wq6trd4uenpa7gkojshkiua"
+      }
+    }
+  }
+}
