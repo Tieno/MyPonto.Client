@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Globalization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MyPonto.Client.Model
 {
+    
+
     public partial class TransactionAttributes
     {
         [JsonProperty("valueDate")]
-        public DateTime ValueDate { get; set; }
+        
+        public DateTimeOffset ValueDate { get; set; }
 
         [JsonProperty("remittanceInformationType")]
         public string RemittanceInformationType { get; set; }
@@ -15,7 +20,8 @@ namespace MyPonto.Client.Model
         public string RemittanceInformation { get; set; }
 
         [JsonProperty("executionDate")]
-        public DateTime ExecutionDate { get; set; }
+       
+        public DateTimeOffset ExecutionDate { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }

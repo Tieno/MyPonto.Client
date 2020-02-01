@@ -12,8 +12,9 @@ namespace MyPonto.Client.Model
         [JsonProperty("links")]
         public TransactionsResponseLinks Links { get; set; }
 
-        [JsonProperty("data")]
-        public SortedSet<TransactionResource> Data { get; set; }
+
+        [JsonProperty("data")] 
+        public List<TransactionResource> Data { get; set; }
 
         internal void Bind(MyPontoService service)
         {

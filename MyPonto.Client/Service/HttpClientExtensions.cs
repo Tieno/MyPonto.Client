@@ -11,7 +11,7 @@ namespace MyPonto.Client.Service
         {
             var response = await thisClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return await response.GetAs<T>();
         }
         public static async Task<T> GetAs<T>(this HttpClient thisClient, Uri uri)
         {
@@ -22,7 +22,16 @@ namespace MyPonto.Client.Service
         {
             
             var content = await thisResponse.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+
+            return JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings
+            {
+                DateParseHandling = DateParseHandling.DateTimeOffset,
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
+
+            });
         }
     }
 }
+
+

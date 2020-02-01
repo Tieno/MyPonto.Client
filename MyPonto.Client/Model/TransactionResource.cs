@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MyPonto.Client.Model
 {
+   
     public partial class TransactionResource
     {
         [JsonProperty("type")]
@@ -16,5 +19,7 @@ namespace MyPonto.Client.Model
 
         [JsonProperty("attributes")]
         public TransactionAttributes Attributes { get; set; }
+
+        
     }
 }

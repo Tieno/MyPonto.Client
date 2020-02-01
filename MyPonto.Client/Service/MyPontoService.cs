@@ -19,19 +19,19 @@ namespace MyPonto.Client.Service
         private readonly HttpClient _client;
         private readonly int _pageSize;
 
-        public MyPontoService(HttpClient client)
+        internal MyPontoService(HttpClient client)
         {
             _client = client;
             _pageSize = 20;
             
         }
-        public MyPontoService(HttpClient client, int pageSize)
+        internal MyPontoService(HttpClient client, int pageSize)
         {
             _client = client;
             _pageSize = pageSize;
         }
 
-        public static IMyPontoService Create(string clientId, string clientSecret, string pontoEndpoint = "https://api.myponto.com")
+        public static IMyPontoService Create(string clientId, string clientSecret, int pageSize = 100, string pontoEndpoint = "https://api.myponto.com")
         {
             var options = new OAuthHttpHandlerOptions
             {
@@ -47,7 +47,7 @@ namespace MyPonto.Client.Service
             
             var httpClient = new HttpClient(new OAuthHttpHandler(options));
             httpClient.BaseAddress = new Uri(pontoEndpoint);
-            var pontoClient = new MyPontoService(httpClient, 100);
+            var pontoClient = new MyPontoService(httpClient, pageSize);
             return pontoClient;
         }
 

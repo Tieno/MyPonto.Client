@@ -115,7 +115,6 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Requires(() => MYPONTO_CLIENTID)
         .Requires(() => MYPONTO_CLIENTSECRET)
-        
         .Executes(() =>
         {
             foreach (var testProject in TestProjects)
