@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F223CC33
 		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPonto.Tests", "tests\MyPonto.Tests\MyPonto.Tests.csproj", "{C363139F-5425-4E8D-B69A-3F1F162B9293}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{73F7423C-B5F2-4869-A179-D4799755B1C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C7628E8-5C29-4D2E-9ED7-5EB4DCDC2255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C7628E8-5C29-4D2E-9ED7-5EB4DCDC2255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C363139F-5425-4E8D-B69A-3F1F162B9293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C363139F-5425-4E8D-B69A-3F1F162B9293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C363139F-5425-4E8D-B69A-3F1F162B9293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C363139F-5425-4E8D-B69A-3F1F162B9293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

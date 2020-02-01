@@ -26,7 +26,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Publish);
+    public static int Main () => Execute<Build>(x => x.Test);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -38,8 +38,12 @@ class Build : NukeBuild
     AbsolutePath SourceDirectory = RootDirectory / "MyPonto.Client";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    
     [Parameter("NuGet Api Key",Name = "NUGET_API_KEY")] readonly string NUGET_API_KEY;
     [Parameter("NuGet Endpoint for Packages")] readonly string NUGET_ENDPOINT = "https://api.nuget.org/v3/index.json";
+
+    [Parameter("MyPonto ClientId", Name = "MYPONTO_CLIENTID")] readonly string MYPONTO_CLIENTID;
+    [Parameter("MyPonto ClientSecret", Name = "MYPONTO_CLIENTSECRET")] readonly string MYPONTO_CLIENTSECRET;
 
     Target Clean => _ => _
         .Before(Restore)
@@ -83,6 +87,7 @@ class Build : NukeBuild
 
         });
     Target Publish => _ => _
+        .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
         .Requires(() => NUGET_ENDPOINT)
@@ -100,6 +105,22 @@ class Build : NukeBuild
                 completeOnFailure: true);
 
         });
-
+    Target Test => _ => _
+        .DependsOn(Compile)
+        .Requires(() => MYPONTO_CLIENTID)
+        .Requires(() => MYPONTO_CLIENTSECRET)
+        .Executes(() =>
+        {
+            var testProjects = GlobFiles(TestsDirectory, "*\\*tests.csproj");
+            var testRun = 1;
+            foreach (var testProject in testProjects)
+            {
+                DotNetTest(s => s.SetProjectFile(testProject).SetFilter("Category!=RunLocal").SetLogOutput(true)
+                    .SetListTests(true).SetNoBuild(true).ResetVerbosity()
+                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTID),MYPONTO_CLIENTID)
+                    .SetEnvironmentVariable(nameof(MYPONTO_CLIENTSECRET), MYPONTO_CLIENTSECRET)
+                );
+            }
+        });
 
 }

@@ -17,4 +17,6 @@ jobs:
     - name: Build with dotnet
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}  
+        MYPONTO_CLIENTID:  ${{ secrets.MYPONTO_CLIENTID }}
+        MYPONTO_CLIENTSECRET:  ${{ secrets.MYPONTO_CLIENTSECRET }}
       run: dotnet run --project build/_build.csproj Publish

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "MyPonto.Tests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MyPonto_ClientId": "5d737162-50e4-4366-8ce2-f0dc0d41b093",
+        "MyPonto_ClientSecret": "2feddea9-3ad2-47a8-8bfc-07610a4b7e2c"
+      }
+    }
+  }
+}

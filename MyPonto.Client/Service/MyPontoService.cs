@@ -31,7 +31,7 @@ namespace MyPonto.Client.Service
             _pageSize = pageSize;
         }
 
-        public static MyPontoService Create(string clientId, string clientSecret, string pontoEndpoint = "https://api.myponto.com")
+        public static IMyPontoService Create(string clientId, string clientSecret, string pontoEndpoint = "https://api.myponto.com")
         {
             var options = new OAuthHttpHandlerOptions
             {

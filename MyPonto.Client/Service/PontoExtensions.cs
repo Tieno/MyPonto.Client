@@ -6,12 +6,22 @@ using MyPonto.Client.Model;
 
 namespace MyPonto.Client.Service
 {
+    public static class SortedSetExtensions
+    {
+        public static void AddRange<T>(this SortedSet<T> set, IEnumerable<T> toAdd)
+        {
+            foreach (var item in toAdd)
+            {
+                set.Add(item);
+            }
+        }
+    }
     public static class PontoExtensions
     {
         public static async Task<TransactionsResponse> GetAllTransactions(this IMyPontoService myPontoService, Guid accountId)
         {
             var allTransactionsResponse = new TransactionsResponse();
-            allTransactionsResponse.Data = new List<TransactionResource>();
+            allTransactionsResponse.Data = new SortedSet<TransactionResource>();
             
             var transactionResponse = await myPontoService.GetTransactions(accountId);
             allTransactionsResponse.Meta = transactionResponse.Meta;
@@ -33,7 +43,7 @@ namespace MyPonto.Client.Service
         public static async Task<TransactionsResponse> GetNewTransactions(this IMyPontoService myPontoService, Guid accountId, Guid lastKnownTransactionId)
         {
             var allTransactionsResponse = new TransactionsResponse();
-            allTransactionsResponse.Data = new List<TransactionResource>();
+            allTransactionsResponse.Data = new SortedSet<TransactionResource>();
             var transactionResponse = await myPontoService.GetTransactionsBefore(accountId, lastKnownTransactionId);
             allTransactionsResponse.Meta = transactionResponse.Meta;
             allTransactionsResponse.Meta.Paging = null;
