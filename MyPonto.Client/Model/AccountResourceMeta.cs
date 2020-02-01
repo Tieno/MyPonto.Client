@@ -11,4 +11,5 @@ namespace MyPonto.Client.Model
         [JsonProperty("latestSynchronization")]
         public Synchronization LatestSynchronization { get; set; }
     }
+
 }

@@ -5,7 +5,6 @@ branches:
   master:
     regex: (origin/)?master
     mode: ContinuousDelivery
-    tag: ''
     increment: Patch 
   develop:
     increment: Patch
