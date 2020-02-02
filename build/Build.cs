@@ -26,7 +26,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Test);
+    public static int Main () => Execute<Build>(x => x.Publish);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -80,6 +80,7 @@ class Build : NukeBuild
                 .EnableNoRestore());
         });
     Target Pack => _ => _
+        .DependsOn(Clean)
         .DependsOn(Compile)
         .Executes(() =>
         {
@@ -92,9 +93,9 @@ class Build : NukeBuild
 
         });
     Target Publish => _ => _
+        .OnlyWhenDynamic(() => (GitRepository.IsOnMasterBranch() || GitRepository.IsOnDevelopBranch()))
         .DependsOn(Test)
         .DependsOn(Pack)
-        .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Requires(() => NUGET_API_KEY)
         .Requires(() => NUGET_ENDPOINT)
         .Executes(() =>

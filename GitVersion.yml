@@ -1,6 +1,5 @@
 assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatch
-mode: Mainline
 ignore:
   commits-before: 2020-01-01T11:43:45
 branches:
@@ -8,5 +7,5 @@ branches:
     regex: (origin/)?master
   develop:
     increment: Patch
-    tag: beta
+    tag: develop
     regex: (origin/)?dev(elop)?(ment)?$
