@@ -94,6 +94,7 @@ class Build : NukeBuild
     Target Publish => _ => _
         .DependsOn(Test)
         .DependsOn(Pack)
+        .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Requires(() => NUGET_API_KEY)
         .Requires(() => NUGET_ENDPOINT)
         .Executes(() =>
