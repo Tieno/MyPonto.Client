@@ -92,26 +92,51 @@ class Build : NukeBuild
             );
 
         });
+
+    public bool CanPublishNuget()
+    {
+        Logger.Info($"CanPublishNuget if on develop or master branch");
+        Logger.Info($"GitRepo => {GitRepository.Branch}");
+        if (GitRepository.IsOnDevelopBranch())
+        {
+            return true;
+        }
+        if (GitRepository.IsOnMasterBranch())
+        {
+            return true;
+        }
+        switch (GitRepository.Branch)
+        {
+            case "refs/heads/develop":
+            case "refs/heads/master":
+                return true;
+            default:
+                return false;
+        }
+    }
     Target Publish => _ => _
-        .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch() || GitRepository.IsOnDevelopBranch())
+        .OnlyWhenDynamic(() => CanPublishNuget())
         .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
         .Requires(() => NUGET_ENDPOINT)
         .Executes(() =>
-        {
-            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
-            //add minor change
-            DotNetNuGetPush(_ => _
-                    .SetSource(NUGET_ENDPOINT)
-                    .SetApiKey(NUGET_API_KEY)
-                    .CombineWith(
-                        packages, (_, v) => _
-                            .SetTargetPath(v)),
-                degreeOfParallelism: 5,
-                completeOnFailure: true);
+   {
 
-        });
+
+       var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+       //add minor change
+       DotNetNuGetPush(_ => _
+               .SetSource(NUGET_ENDPOINT)
+               .SetApiKey(NUGET_API_KEY)
+               .CombineWith(
+                   packages, (_, v) => _
+                       .SetTargetPath(v)),
+           degreeOfParallelism: 5,
+           completeOnFailure: true);
+
+
+   });
     Target Test => _ => _
         .OnlyWhenStatic(() => TestProjects.Length > 0)
         .DependsOn(Compile)
@@ -129,5 +154,7 @@ class Build : NukeBuild
             }
           
         });
+
+
 
 }
