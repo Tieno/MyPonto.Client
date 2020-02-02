@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using MyPonto.Client.Model;
+using Tieno.MyPonto.Client.Model;
 
-namespace MyPonto.Client.Service
+namespace Tieno.MyPonto.Client.Service
 {
     public interface IMyPontoService
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using MyPonto.Client.Model;
+using Tieno.MyPonto.Client.Model;
 
-namespace MyPonto.Client.Service
+namespace Tieno.MyPonto.Client.Service
 {
     
     public static class PontoExtensions

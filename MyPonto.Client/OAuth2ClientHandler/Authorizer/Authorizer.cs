@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OAuth2ClientHandler.Authorizer
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer
 {
     internal sealed class Authorizer : IAuthorizer
     {

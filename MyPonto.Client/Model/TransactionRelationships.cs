@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using MyPonto.Client.Service;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Model
 {
     public partial class TransactionRelationships 
     {

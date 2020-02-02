@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace OAuth2ClientHandler.Authorizer
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer
 {
     public sealed class AuthorizerOptions
     {

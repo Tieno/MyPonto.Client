@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Model
 {
     public partial class AccountLinks
     {

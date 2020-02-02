@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MyPonto.Client.Service;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Tieno.MyPonto.Client.Service;
 
-namespace MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Model
 {
-    using System.Collections.Generic;
-
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     public partial class AccountsResponse
     {
         [JsonProperty("meta")]

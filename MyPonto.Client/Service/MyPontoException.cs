@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using MyPonto.Client.Model;
+using Tieno.MyPonto.Client.Model;
 
-namespace MyPonto.Client.Service
+namespace Tieno.MyPonto.Client.Service
 {
     public class MyPontoException : Exception
     {

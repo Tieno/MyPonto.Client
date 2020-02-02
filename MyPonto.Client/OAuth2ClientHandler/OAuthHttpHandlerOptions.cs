@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
-using OAuth2ClientHandler.Authorizer;
+using Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer;
 
-namespace OAuth2ClientHandler
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler
 {
     public sealed class OAuthHttpHandlerOptions
     {

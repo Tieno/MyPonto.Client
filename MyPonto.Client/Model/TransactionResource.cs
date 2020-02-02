@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
-namespace MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Model
 {
    
     public partial class TransactionResource
