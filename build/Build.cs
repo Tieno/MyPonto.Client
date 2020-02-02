@@ -93,7 +93,7 @@ class Build : NukeBuild
 
         });
     Target Publish => _ => _
-        .OnlyWhenDynamic(() => (GitRepository.IsOnMasterBranch() || GitRepository.IsOnDevelopBranch()))
+        .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch() || GitRepository.IsOnDevelopBranch())
         .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
