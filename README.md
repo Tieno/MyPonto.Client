@@ -26,8 +26,8 @@ var client = MyPontoService.Create(ClientId, ClientSecret);
 - Afterwards you can wait for the synchronizations to complete
 
 ```c#
-var synchronizations = await client.SynchronizeAccount(accountResource.Id);
-await syncStatus.WaitTillCompleted();
+var pendingSynchronizations = await client.SynchronizeAccount(accountResource.Id);
+await pendingSynchronizations.WaitTillCompleted();
 ```
 
 ### Fetch an Account
