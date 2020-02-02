@@ -123,23 +123,20 @@ class Build : NukeBuild
         .Executes(() =>
    {
 
-      
-       if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnMasterBranch())
-       {
-           var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
-           //add minor change
-           DotNetNuGetPush(_ => _
-                   .SetSource(NUGET_ENDPOINT)
-                   .SetApiKey(NUGET_API_KEY)
-                   .CombineWith(
-                       packages, (_, v) => _
-                           .SetTargetPath(v)),
-               degreeOfParallelism: 5,
-               completeOnFailure: true);
-       }
-            
 
-        });
+       var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+       //add minor change
+       DotNetNuGetPush(_ => _
+               .SetSource(NUGET_ENDPOINT)
+               .SetApiKey(NUGET_API_KEY)
+               .CombineWith(
+                   packages, (_, v) => _
+                       .SetTargetPath(v)),
+           degreeOfParallelism: 5,
+           completeOnFailure: true);
+
+
+   });
     Target Test => _ => _
         .OnlyWhenStatic(() => TestProjects.Length > 0)
         .DependsOn(Compile)
