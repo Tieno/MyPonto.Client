@@ -88,7 +88,8 @@ class Build : NukeBuild
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj")
                 .SetPackageProjectUrl(NugetProjectUrl)
-                .SetIncludeSymbols(true).SetLogOutput(true)
+                //.SetIncludeSymbols(true)
+                .SetLogOutput(true)
                 .SetVersion(GitVersion.NuGetVersionV2)
                 //
             );
@@ -131,6 +132,7 @@ class Build : NukeBuild
        DotNetNuGetPush(_ => _
                .SetSource(NUGET_ENDPOINT)
                .SetApiKey(NUGET_API_KEY)
+               
                .CombineWith(
                    packages, (_, v) => _
                        .SetTargetPath(v)),
