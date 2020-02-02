@@ -95,6 +95,8 @@ class Build : NukeBuild
 
     public bool CanPublishNuget()
     {
+        Logger.Info($"CanPublishNuget if on develop or master branch");
+        Logger.Info($"GitRepo => {GitRepository.Branch}");
         if (GitRepository.IsOnDevelopBranch())
         {
             return true;
@@ -105,8 +107,8 @@ class Build : NukeBuild
         }
         switch (GitRepository.Branch)
         {
-            case " refs/heads/develop":
-            case " refs/heads/master":
+            case "refs/heads/develop":
+            case "refs/heads/master":
                 return true;
             default:
                 return false;
@@ -121,7 +123,7 @@ class Build : NukeBuild
         .Executes(() =>
    {
 
-       Logger.Info($"GitRepo => {GitRepository.Branch}");
+      
        if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnMasterBranch())
        {
            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
