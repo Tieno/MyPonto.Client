@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MyPonto.Client.Model;
 
@@ -65,8 +66,12 @@ namespace MyPonto.Client.Service
         }
         private static bool CanSynchronize(this DateTime synchronizedAt)
         {
-            if (synchronizedAt.AddMinutes(30) > DateTime.UtcNow)
+            var syncedAt = synchronizedAt.AddMinutes(30).ToUniversalTime();
+            var now = DateTime.UtcNow;
+            Debug.WriteLine($"{nameof(syncedAt)}={syncedAt}, {nameof(now)}={now}. CanSynchronize() == SyncedAt < Now == {syncedAt < now}");
+            if (syncedAt < now)
             {
+
                 return true;
             }
             else
