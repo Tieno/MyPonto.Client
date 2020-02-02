@@ -25,7 +25,7 @@ namespace MyPonto.Client.Service
 
             return JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings
             {
-                DateParseHandling = DateParseHandling.DateTimeOffset,
+                DateParseHandling = DateParseHandling.DateTime,
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat
 

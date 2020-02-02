@@ -63,6 +63,17 @@ namespace MyPonto.Client.Service
                 return false;
             }
         }
+        private static bool CanSynchronize(this DateTime synchronizedAt)
+        {
+            if (synchronizedAt.AddMinutes(30) > DateTime.UtcNow)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(this IMyPontoService myPontoService, Guid accountId)
         {

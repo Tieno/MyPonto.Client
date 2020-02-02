@@ -84,7 +84,11 @@ namespace MyPonto.Tests
 
             foreach (var transactionResource in response.Data)
             {
-                transactionResource.Attributes.ExecutionDate.Offset.Should().Be(new TimeSpan(0));
+                transactionResource.Attributes.ExecutionDate.Kind.Should().Be(DateTimeKind.Utc);
+                transactionResource.Attributes.ValueDate.Kind.Should().Be(DateTimeKind.Utc);
+                transactionResource.Attributes.ExecutionDate.TimeOfDay.Should().Be(new TimeSpan(0));
+                transactionResource.Attributes.ValueDate.TimeOfDay.Should().Be(new TimeSpan(0));
+
             }
         }
 

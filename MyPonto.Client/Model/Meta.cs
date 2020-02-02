@@ -6,7 +6,7 @@ namespace MyPonto.Client.Model
     public partial class Meta
     {
         [JsonProperty("synchronizedAt")]
-        public DateTimeOffset? SynchronizedAt { get; set; }
+        public DateTime? SynchronizedAt { get; set; }
 
         [JsonProperty("paging")]
         public Paging Paging { get; set; }

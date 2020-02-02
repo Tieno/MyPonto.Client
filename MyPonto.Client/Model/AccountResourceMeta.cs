@@ -6,7 +6,7 @@ namespace MyPonto.Client.Model
     public partial class AccountResourceMeta
     {
         [JsonProperty("synchronizedAt")]
-        public DateTimeOffset SynchronizedAt { get; set; }
+        public DateTime SynchronizedAt { get; set; }
 
         [JsonProperty("latestSynchronization")]
         public Synchronization LatestSynchronization { get; set; }

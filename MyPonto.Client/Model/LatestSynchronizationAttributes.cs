@@ -7,7 +7,7 @@ namespace MyPonto.Client.Model
     public partial class LatestSynchronizationAttributes
     {
         [JsonProperty("updatedAt")]
-        public DateTimeOffset UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("subtype")]
         public string Subtype { get; set; }
@@ -25,6 +25,6 @@ namespace MyPonto.Client.Model
         public List<object> Errors { get; set; }
 
         [JsonProperty("createdAt")]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
