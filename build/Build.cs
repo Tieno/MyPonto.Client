@@ -92,8 +92,28 @@ class Build : NukeBuild
             );
 
         });
+
+    public bool CanPublishNuget()
+    {
+        if (GitRepository.IsOnDevelopBranch())
+        {
+            return true;
+        }
+        if (GitRepository.IsOnMasterBranch())
+        {
+            return true;
+        }
+        switch (GitRepository.Branch)
+        {
+            case " refs/heads/develop":
+            case " refs/heads/master":
+                return true;
+            default:
+                return false;
+        }
+    }
     Target Publish => _ => _
-        //.OnlyWhenDynamic(() => GitRepository.IsOnDevelopBranch())
+        .OnlyWhenDynamic(() => CanPublishNuget())
         .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
@@ -135,5 +155,7 @@ class Build : NukeBuild
             }
           
         });
+
+
 
 }
