@@ -55,8 +55,12 @@ namespace Tieno.MyPonto.Client.Service
 
         private static bool CanSynchronize(this DateTimeOffset synchronizedAt)
         {
-            if (synchronizedAt.AddMinutes(30) > DateTimeOffset.Now)
+            var syncedAt = synchronizedAt.AddMinutes(30).ToUniversalTime();
+            var now = DateTimeOffset.UtcNow;
+            Debug.WriteLine($"{nameof(syncedAt)}={syncedAt}, {nameof(now)}={now}. CanSynchronize() == SyncedAt < Now == {syncedAt < now}");
+            if (syncedAt < now)
             {
+
                 return true;
             }
             else
