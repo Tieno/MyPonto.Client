@@ -88,7 +88,8 @@ class Build : NukeBuild
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj")
                 .SetPackageProjectUrl(NugetProjectUrl)
-                .SetIncludeSymbols(true).SetLogOutput(true)
+                //.SetIncludeSymbols(true)
+                .SetLogOutput(true)
                 .SetVersion(GitVersion.NuGetVersionV2)
                 //
             );
