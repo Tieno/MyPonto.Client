@@ -4,11 +4,11 @@ MyPonto.Client is a  C# Client for the [MyPonto API](https://documentation.mypon
 
 ## Installation
 
-## [NuGet](https://www.nuget.org/packages/MyPonto.Client/)
+## [NuGet](https://www.nuget.org/packages/Tieno.MyPonto.Client/)
 To install the package run the following command on the Package Manager Console:
 
 ```
-PM> Install-Package MyPonto.Client
+PM> Install-Package Tieno.MyPonto.Client
 ```
 
 ## Usage
