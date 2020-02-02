@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
 
     <UserSecretsId>fce6fb1d-594d-4915-b4c7-1a1b6f2d2aab</UserSecretsId>
+
+    <AssemblyName>Tieno.MyPonto.Tests</AssemblyName>
+
+    <RootNamespace>Tieno.MyPonto.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

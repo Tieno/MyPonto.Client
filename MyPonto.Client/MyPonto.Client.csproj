@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Tieno.MyPonto.Client</AssemblyName>
+    <RootNamespace>Tieno.MyPonto.Client</RootNamespace>
+    <ApplicationIcon />
   </PropertyGroup>
 
   <ItemGroup>

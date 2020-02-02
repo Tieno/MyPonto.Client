@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
-namespace MyPonto.Client.Service
+namespace Tieno.MyPonto.Client.Service
 {
     public static class UriExtensions
     {

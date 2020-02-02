@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using OAuth2ClientHandler.Authorizer;
+using Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer;
 
-namespace OAuth2ClientHandler
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler
 {
     public class OAuthHttpHandler : DelegatingHandler
     {

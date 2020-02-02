@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using MyPonto.Client.Service;
 using Newtonsoft.Json;
+using Tieno.MyPonto.Client.Service;
 
-namespace MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Model
 {
     public partial class TransactionsResponse
     {

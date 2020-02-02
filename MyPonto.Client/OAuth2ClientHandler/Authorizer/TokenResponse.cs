@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace OAuth2ClientHandler.Authorizer
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer
 {
     [DataContract]
     internal sealed class TokenResponse

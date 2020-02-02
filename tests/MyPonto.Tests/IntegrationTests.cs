@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using MyPonto.Client.Service;
+using Tieno.MyPonto.Client.Service;
 using Xunit;
 
 namespace MyPonto.Tests

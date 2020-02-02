@@ -5,14 +5,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
-using MyPonto.Client.Model;
 using Newtonsoft.Json;
-using OAuth2ClientHandler;
-using OAuth2ClientHandler.Authorizer;
-using Timer = System.Timers.Timer;
+using Tieno.MyPonto.Client.Model;
+using Tieno.MyPonto.Client.OAuth2ClientHandler;
+using Tieno.MyPonto.Client.OAuth2ClientHandler.Authorizer;
 
-namespace MyPonto.Client.Service
+namespace Tieno.MyPonto.Client.Service
 {
     public class MyPontoService : IMyPontoService
     {

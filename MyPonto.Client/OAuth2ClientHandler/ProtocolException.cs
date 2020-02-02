@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace OAuth2ClientHandler
+namespace Tieno.MyPonto.Client.OAuth2ClientHandler
 {
     public sealed class ProtocolException : Exception
     {

@@ -1,4 +1,4 @@
-﻿namespace MyPonto.Client.Service
+﻿namespace Tieno.MyPonto.Client.Service
 {
     public class SynchronizationType
     {
