@@ -101,6 +101,7 @@ class Build : NukeBuild
         .Executes(() =>
    {
 
+       Logger.Info($"GitRepo => {GitRepository.Branch}");
        if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnMasterBranch())
        {
            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
