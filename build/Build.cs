@@ -93,13 +93,14 @@ class Build : NukeBuild
 
         });
     Target Publish => _ => _
-        .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch() || GitRepository.IsOnDevelopBranch())
+        .OnlyWhenDynamic(() => GitRepository.Branch == "origin/develop" || GitRepository.Branch == "origin/master")
         .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
         .Requires(() => NUGET_ENDPOINT)
         .Executes(() =>
-        {
+   {
+
             var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
             //add minor change
             DotNetNuGetPush(_ => _
