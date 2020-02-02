@@ -13,11 +13,32 @@ PM> Install-Package Tieno.MyPonto.Client
 
 ## Usage
 
+### Create the client
 ```c#
 var clientId = Configuration["MYPONTO_CLIENTID"]; //or somewhere else
 var clientSecret = Configuration["MYPONTO_CLIENTSECRET"]; //or somewhere else
 var client = MyPontoService.Create(ClientId, ClientSecret);
 ```
+
+
+### Synchronize an account
+- creates 2 synchronization resources, one for account details and one for transactions.
+- Afterwards you can wait for the synchronizations to complete
+
+```c#
+var synchronizations = await client.SynchronizeAccount(accountResource.Id);
+await syncStatus.WaitTillCompleted();
+```
+
+### Fetch an Account
+TODO
+
+### Fetch All Transactions
+TODO
+
+### Fetch New Transactions
+TODO
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
