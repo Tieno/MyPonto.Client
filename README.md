@@ -1,6 +1,6 @@
 # Tieno.MyPonto.Client
 
-MyPotno.Client is a  C# Client for the [MyPonto API](https://documentation.myponto.com/api)
+MyPoto.Client is a  C# Client for the [MyPonto API](https://documentation.myponto.com/api)
 
 ## Installation
 
