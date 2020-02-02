@@ -45,6 +45,8 @@ class Build : NukeBuild
     [Parameter("NuGet Api Key",Name = "NUGET_API_KEY")] readonly string NUGET_API_KEY;
     [Parameter("NuGet Endpoint for Packages")] readonly string NUGET_ENDPOINT = "https://api.nuget.org/v3/index.json";
 
+    private readonly string NugetProjectUrl = "https://github.com/Tieno/MyPonto.Client";
+
     [Parameter("MyPonto ClientId", Name = "MYPONTO_CLIENTID")] readonly string MYPONTO_CLIENTID;
     [Parameter("MyPonto ClientSecret", Name = "MYPONTO_CLIENTSECRET")] readonly string MYPONTO_CLIENTSECRET;
 
@@ -85,6 +87,8 @@ class Build : NukeBuild
             DotNetPack(s => s
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetProject(RootDirectory / "MyPonto.Client" / "MyPonto.Client.csproj")
+                .SetPackageProjectUrl(NugetProjectUrl)
+                .SetIncludeSymbols(true).SetLogOutput(true)
                 .SetVersion(GitVersion.NuGetVersionV2)
                 //
             );
