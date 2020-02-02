@@ -93,7 +93,7 @@ class Build : NukeBuild
 
         });
     Target Publish => _ => _
-        .OnlyWhenDynamic(() => GitRepository.IsOnDevelopBranch())
+        //.OnlyWhenDynamic(() => GitRepository.IsOnDevelopBranch())
         .DependsOn(Test)
         .DependsOn(Pack)
         .Requires(() => NUGET_API_KEY)
@@ -101,16 +101,20 @@ class Build : NukeBuild
         .Executes(() =>
    {
 
-            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
-            //add minor change
-            DotNetNuGetPush(_ => _
-                    .SetSource(NUGET_ENDPOINT)
-                    .SetApiKey(NUGET_API_KEY)
-                    .CombineWith(
-                        packages, (_, v) => _
-                            .SetTargetPath(v)),
-                degreeOfParallelism: 5,
-                completeOnFailure: true);
+       if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnMasterBranch())
+       {
+           var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+           //add minor change
+           DotNetNuGetPush(_ => _
+                   .SetSource(NUGET_ENDPOINT)
+                   .SetApiKey(NUGET_API_KEY)
+                   .CombineWith(
+                       packages, (_, v) => _
+                           .SetTargetPath(v)),
+               degreeOfParallelism: 5,
+               completeOnFailure: true);
+       }
+            
 
         });
     Target Test => _ => _
