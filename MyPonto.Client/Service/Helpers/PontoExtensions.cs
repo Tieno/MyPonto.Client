@@ -4,18 +4,20 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Tieno.MyPonto.Client.Model;
+using Tieno.MyPonto.Client.Transactions;
+using Tieno.MyPonto.Client.Transactions.Model;
 
 namespace Tieno.MyPonto.Client.Service
 {
     
     public static class PontoExtensions
     {
-        public static async Task<TransactionsResponse> GetAllTransactions(this IMyPontoService myPontoService, Guid accountId)
+        public static async Task<TransactionsResponse> GetAllTransactions(this ITransactionApi myPontoApi, Guid accountId)
         {
             var allTransactionsResponse = new TransactionsResponse();
             allTransactionsResponse.Data = new List<TransactionResource>();
             
-            var transactionResponse = await myPontoService.GetTransactions(accountId);
+            var transactionResponse = await myPontoApi.GetTransactions(accountId);
             allTransactionsResponse.Meta = transactionResponse.Meta;
             allTransactionsResponse.Meta.Paging = null;
             TransactionsResponse nextPage = await transactionResponse.Links.GetFirstPage();
@@ -32,11 +34,11 @@ namespace Tieno.MyPonto.Client.Service
           
             return allTransactionsResponse;
         }
-        public static async Task<TransactionsResponse> GetNewTransactions(this IMyPontoService myPontoService, Guid accountId, Guid lastKnownTransactionId)
+        public static async Task<TransactionsResponse> GetNewTransactions(this ITransactionApi myPontoApi, Guid accountId, Guid lastKnownTransactionId)
         {
             var allTransactionsResponse = new TransactionsResponse();
             allTransactionsResponse.Data = new List<TransactionResource>();
-            var transactionResponse = await myPontoService.GetTransactionsBefore(accountId, lastKnownTransactionId);
+            var transactionResponse = await myPontoApi.GetTransactionsBefore(accountId, lastKnownTransactionId);
             allTransactionsResponse.Meta = transactionResponse.Meta;
             allTransactionsResponse.Meta.Paging = null;
             allTransactionsResponse.Data.AddRange(transactionResponse.Data);
@@ -84,20 +86,20 @@ namespace Tieno.MyPonto.Client.Service
             }
         }
 
-        public static async Task<IReadOnlyCollection<Synchronization>> SynchronizeAccount(this IMyPontoService myPontoService, Guid accountId)
+        public static async Task<IReadOnlyCollection<Synchronization.Model.Synchronization>> SynchronizeAccount(this IMyPontoApi myPontoApi, Guid accountId)
         {
-            var account = await myPontoService.GetAccount(accountId);
+            var account = await myPontoApi.Accounts.GetAccount(accountId);
             if (account.Meta.SynchronizedAt.CanSynchronize())
             {
-                return await myPontoService.CreateSynchronizations(accountId);
+                return await myPontoApi.Synchronizations.CreateSynchronizations(accountId);
             }
-            return new List<Synchronization>();
+            return new List<Synchronization.Model.Synchronization>();
         }
         
 
          
 
-        public static async Task WaitTillCompleted(this IEnumerable<Synchronization> syncs, int timeOutInMsSeconds = 10000)
+        public static async Task WaitTillCompleted(this IEnumerable<Synchronization.Model.Synchronization> syncs, int timeOutInMsSeconds = 10000)
         {
             foreach (var synchronization in syncs)
             {

@@ -14,7 +14,7 @@ namespace MyPonto.Tests
     
     public class IntegrationTests
     {
-        private IMyPontoService client;
+        private IMyPontoApi client;
 
         public IntegrationTests()
         {
@@ -23,7 +23,7 @@ namespace MyPonto.Tests
             this.ClientId = Configuration["MYPONTO_CLIENTID"];
             this.ClientSecret = Configuration["MYPONTO_CLIENTSECRET"];
             this._pageSize = 5; 
-            this.client = MyPontoService.Create(ClientId, ClientSecret,_pageSize);
+            this.client = MyPontoApi.Create(ClientId, ClientSecret,_pageSize);
         }
 
         private readonly int _pageSize;
@@ -37,23 +37,23 @@ namespace MyPonto.Tests
         [Fact]
         public async Task GetsAllAccounts_ResponseIsNotEmpty()
         {
-            var response = await this.client.GetAccounts();
+            var response = await this.client.Accounts.GetAccounts();
             response.Data.Should().NotBeNullOrEmpty("we expect at least 1 account");
             response.Data.Count.Should().BeGreaterThan(1);
         }
         [Fact]
         public async Task FetchingTransactions_ShouldEqualPageSize()
         {
-            var account = (await this.client.GetAccounts()).Data.Last();
-            var transactions = await client.GetTransactions(account.Id);
+            var account = (await this.client.Accounts.GetAccounts()).Data.Last();
+            var transactions = await client.Transactions.GetTransactions(account.Id);
             transactions.Data.Count.Should().Be(_pageSize, "when fetching 5, we expect 5");
         }
 
         [Fact]
         public async Task GetTransactionsForAccount_ResponseIsNotEmpty()
         {
-            var account = (await this.client.GetAccounts()).Data.Last();
-            var transactions = await client.GetTransactions(account.Id);
+            var account = (await this.client.Accounts.GetAccounts()).Data.Last();
+            var transactions = await client.Transactions.GetTransactions(account.Id);
             transactions.Data.Should().NotBeNullOrEmpty();
 
             transactions.Data.Count.Should().BeGreaterThan(3);
@@ -62,8 +62,8 @@ namespace MyPonto.Tests
         [Fact]
         public async Task GetAllTransactions_ReturnsMoreTransactionsThanPageSize()
         {
-            var account = (await this.client.GetAccounts()).Data.Last();
-            var transactions = await client.GetAllTransactions(account.Id);
+            var account = (await this.client.Accounts.GetAccounts()).Data.Last();
+            var transactions = await client.Transactions.GetAllTransactions(account.Id);
             transactions.Data.Should().NotBeNullOrEmpty();
 
             transactions.Data.Count.Should().BeGreaterThan(_pageSize);
@@ -71,16 +71,16 @@ namespace MyPonto.Tests
         [Fact]
         public async Task GetTransactionsAfterLastTransaction_ReturnsEmptyResponse()
         {
-            var account = (await this.client.GetAccounts()).Data.Last();
-            var lastTransaction = (await client.GetTransactions(account.Id)).Data.First();
-            var response = await client.GetNewTransactions(account.Id, lastTransaction.Id);
+            var account = (await this.client.Accounts.GetAccounts()).Data.Last();
+            var lastTransaction = (await client.Transactions.GetTransactions(account.Id)).Data.First();
+            var response = await client.Transactions.GetNewTransactions(account.Id, lastTransaction.Id);
             response.Data.Should().BeEmpty();
         }
         [Fact]
         public async Task TransactionExecutionDate_IsUtcTimeZone()
         {
-            var account = (await this.client.GetAccounts()).Data.First();
-            var response = await client.GetTransactions(account.Id);
+            var account = (await this.client.Accounts.GetAccounts()).Data.First();
+            var response = await client.Transactions.GetTransactions(account.Id);
 
             foreach (var transactionResource in response.Data)
             {

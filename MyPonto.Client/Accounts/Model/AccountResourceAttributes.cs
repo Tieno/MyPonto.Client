@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Accounts.Model
 {
     public partial class AccountResourceAttributes
     {

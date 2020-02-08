@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Tieno.MyPonto.Client.Service;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Synchronization.Model
 {
     public partial class Synchronization: FetchableResource
     {
@@ -20,7 +20,7 @@ namespace Tieno.MyPonto.Client.Model
         {
             if (this.Attributes.Status == "pending")
             {
-                return _service.WaitForSynchronization(this.Id, timeOutInMsSeconds);
+                return myPontoClient.Synchronizations.WaitForSynchronization(this.Id, timeOutInMsSeconds);
             }
             else
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Accounts.Model
 {
     public partial class AccountResourceMeta
     {
@@ -9,7 +9,7 @@ namespace Tieno.MyPonto.Client.Model
         public DateTime SynchronizedAt { get; set; }
 
         [JsonProperty("latestSynchronization")]
-        public Synchronization LatestSynchronization { get; set; }
+        public Synchronization.Model.Synchronization LatestSynchronization { get; set; }
     }
 
 }

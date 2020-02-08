@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Synchronization.Model
 {
     public partial class LatestSynchronizationAttributes
     {

@@ -12,6 +12,6 @@ namespace Tieno.MyPonto.Client.Model
         public Paging Paging { get; set; }
 
         [JsonProperty("latestSynchronization")]
-        public Synchronization LatestSynchronization { get; set; }
+        public Synchronization.Model.Synchronization LatestSynchronization { get; set; }
     }
 }
