@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Tieno.MyPonto.Client.Service;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Accounts.Model
 {
     public partial class AccountsResponse
     {
@@ -15,11 +15,11 @@ namespace Tieno.MyPonto.Client.Model
         [JsonProperty("data")]
         public List<AccountResource> Data { get; set; }
 
-        internal void Bind(MyPontoService service)
+        internal void Bind(IMyPontoApi api)
         {
             foreach (var accountResource in Data)
             {
-                accountResource.Relationships.Bind(service);
+                accountResource.Relationships.Bind(api);
             }
         }
 

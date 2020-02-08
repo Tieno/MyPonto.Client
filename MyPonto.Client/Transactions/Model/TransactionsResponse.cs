@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Tieno.MyPonto.Client.Model;
 using Tieno.MyPonto.Client.Service;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Transactions.Model
 {
     public partial class TransactionsResponse
     {
@@ -16,9 +17,9 @@ namespace Tieno.MyPonto.Client.Model
         [JsonProperty("data")] 
         public List<TransactionResource> Data { get; set; }
 
-        internal void Bind(MyPontoService service)
+        internal void Bind(IMyPontoApi api)
         {
-            Links.Bind(service);
+            Links.Bind(api);
         }
     }
 }

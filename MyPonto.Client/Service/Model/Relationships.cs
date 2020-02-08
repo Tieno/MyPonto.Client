@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Tieno.MyPonto.Client.Accounts.Model;
 using Tieno.MyPonto.Client.Service;
+using Tieno.MyPonto.Client.Transactions.Model;
 
 namespace Tieno.MyPonto.Client.Model
 {
@@ -18,7 +20,7 @@ namespace Tieno.MyPonto.Client.Model
 
         public Task<TransactionsResponse> GetTransactions()
         {
-            return this._service.GetTransactions(Transactions.Links.Related);
+            return this.myPontoClient.Transactions.GetTransactions(Transactions.Links.Related);
         }
         
 

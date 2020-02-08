@@ -1,8 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Tieno.MyPonto.Client.Model;
 using Tieno.MyPonto.Client.Service;
 
-namespace Tieno.MyPonto.Client.Model
+namespace Tieno.MyPonto.Client.Accounts.Model
 {
     public partial class AccountResource
     {
@@ -21,9 +22,9 @@ namespace Tieno.MyPonto.Client.Model
         [JsonProperty("attributes")]
         public AccountResourceAttributes Attributes { get; set; }
 
-        internal void Bind(MyPontoService service)
+        internal void Bind(IMyPontoApi api)
         {
-            this.Relationships.Bind(service);
+            this.Relationships.Bind(api);
         }
     }
 }
