@@ -132,7 +132,7 @@ class Build : NukeBuild
        DotNetNuGetPush(_ => _
                .SetSource(NUGET_ENDPOINT)
                .SetApiKey(NUGET_API_KEY)
-               
+               .SetLogOutput(true)
                .CombineWith(
                    packages, (_, v) => _
                        .SetTargetPath(v)),
