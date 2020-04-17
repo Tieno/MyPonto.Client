@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Tieno.MyPonto.Client.Model;
 using Tieno.MyPonto.Client.Transactions;
@@ -99,12 +100,9 @@ namespace Tieno.MyPonto.Client.Service
 
          
 
-        public static async Task WaitTillCompleted(this IEnumerable<Synchronization.Model.Synchronization> syncs, int timeOutInMsSeconds = 10000)
+        public static Task WaitTillCompleted(this IEnumerable<Synchronization.Model.Synchronization> syncs, int timeOutInMsSeconds = 10000)
         {
-            foreach (var synchronization in syncs)
-            {
-                await synchronization.WaitTillCompleted(timeOutInMsSeconds);
-            }
+            return Task.WhenAll(syncs.Select(x => x.WaitTillCompleted()));
         }
     }
 }

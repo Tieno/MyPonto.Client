@@ -22,7 +22,5 @@ namespace Tieno.MyPonto.Client.Accounts.Model
                 accountResource.Relationships.Bind(api);
             }
         }
-
-       
     }
 }

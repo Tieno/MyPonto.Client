@@ -33,6 +33,7 @@ namespace Tieno.MyPonto.Client.Service
             transactionsResponse.Bind(this._myPontoApi);
             return transactionsResponse;
         }
+        
         protected readonly HttpClient _client;
         protected readonly IMyPontoApi _myPontoApi;
         protected readonly int _pageSize;

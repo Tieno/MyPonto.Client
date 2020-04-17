@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Tieno.MyPonto.Client.Model;
 using Tieno.MyPonto.Client.Service;
 using Tieno.MyPonto.Client.Transactions.Model;
 
@@ -15,6 +16,15 @@ namespace Tieno.MyPonto.Client.Transactions
         internal TransactionApi(HttpClient client, int pageSize, IMyPontoApi myPontoApi) : base(client, pageSize, myPontoApi)
         {
         }
+        public async Task<TransactionResource> GetTransaction(Guid accountId, Guid transactionId)
+        {
+            var transaction = (await _client.GetAs<BasicResponse<TransactionResource>>($"accounts/{accountId}/transactions/{transactionId}"))
+                .Data;
+            transaction.Bind(this._myPontoApi);
+            return transaction;
+        }
+
+        
 
         public Task<TransactionsResponse> GetTransactions(Guid accountId)
         {

@@ -17,7 +17,7 @@ PM> Install-Package Tieno.MyPonto.Client
 ```c#
 var clientId = Configuration["MYPONTO_CLIENTID"]; //or somewhere else
 var clientSecret = Configuration["MYPONTO_CLIENTSECRET"]; //or somewhere else
-var client = MyPontoService.Create(ClientId, ClientSecret);
+var pontoClient = MyPontoApi.Create(ClientId, ClientSecret);
 ```
 
 
@@ -30,14 +30,21 @@ var pendingSynchronizations = await client.SynchronizeAccount(accountResource.Id
 await pendingSynchronizations.WaitTillCompleted();
 ```
 
-### Fetch an Account
-TODO
+### Fetching Accounts
+```C#
+var accounts = await pontoClient.Accounts.GetAccounts();
 
-### Fetch All Transactions
-TODO
+var account = await pontoClient.Accounts.GetAccount(accountId);
+```
 
-### Fetch New Transactions
-TODO
+
+### Fetching Transactions
+besides the 1-1 api methods on IMyPontoApi.ITransactionApi
+there are a couple of conveninience extension methods
+```C#
+var allTransactions = await pontoClient.Transactions.GetAllTransactions();
+var newTransactions = await pontoClient.Transactions.GetNewTransactions(accountId, lastKnownTransactionId);
+```
 
 
 ## Contributing
