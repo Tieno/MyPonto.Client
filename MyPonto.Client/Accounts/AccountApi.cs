@@ -28,10 +28,10 @@ namespace Tieno.MyPonto.Client.Accounts
         }
         public async Task<AccountResource> GetAccount(Guid accountId)
         {
-            var sync = (await _client.GetAs<BasicResponse<AccountResource>>($"accounts/{accountId}"))
+            var account = (await _client.GetAs<BasicResponse<AccountResource>>($"accounts/{accountId}"))
                 .Data;
-            sync.Bind(this._myPontoApi);
-            return sync;
+            account.Bind(this._myPontoApi);
+            return account;
         }
     }
 

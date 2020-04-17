@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Tieno.MyPonto.Client.Model;
+using Tieno.MyPonto.Client.Service;
 
 namespace Tieno.MyPonto.Client.Transactions.Model
 {
@@ -19,6 +20,9 @@ namespace Tieno.MyPonto.Client.Transactions.Model
         [JsonProperty("attributes")]
         public TransactionAttributes Attributes { get; set; }
 
-        
+        internal void Bind(IMyPontoApi api)
+        {
+            this.Relationships.Bind(api);
+        }
     }
 }

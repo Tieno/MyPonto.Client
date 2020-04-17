@@ -22,4 +22,5 @@ namespace Tieno.MyPonto.Client.Transactions.Model
             Links.Bind(api);
         }
     }
+
 }

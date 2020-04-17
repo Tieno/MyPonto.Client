@@ -88,8 +88,18 @@ namespace MyPonto.Tests
                 transactionResource.Attributes.ValueDate.Kind.Should().Be(DateTimeKind.Utc);
                 transactionResource.Attributes.ExecutionDate.TimeOfDay.Should().Be(new TimeSpan(0));
                 transactionResource.Attributes.ValueDate.TimeOfDay.Should().Be(new TimeSpan(0));
-
             }
+        }
+
+        [Theory]
+        [InlineData("{d8abd2da-a810-493b-8820-88208c076f06}", "{c83eb1d2-9d4b-47ea-933d-2e44d22c9710}")]
+        public async Task GetSingleTransaction_ReturnsTheExpectedTransaction(string accountId, string transactionId)
+        {
+            var transactionResponse =
+                await client.Transactions.GetTransaction(Guid.Parse(accountId), Guid.Parse(transactionId));
+
+            transactionResponse.Id.Should().Be(transactionId);
+            transactionResponse.Relationships.Account.Data.Id.Should().Be(accountId);
         }
 
 
